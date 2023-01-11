@@ -1,6 +1,7 @@
 package jpabook.japshop.service;
 
 import java.util.List;
+import jpabook.japshop.domain.item.Book;
 import jpabook.japshop.domain.item.Item;
 import jpabook.japshop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,17 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item) {
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public Item updateItem(Long itemId, Book param) {
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setPrice(param.getPrice());
+        findItem.setName(param.getName());
+        findItem.setStockQuantity(param.getStockQuantity());
+        //dirty check를 통한 업데이트
+
+        return findItem;
     }
 
     public List<Item> findItems() {

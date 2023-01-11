@@ -1,5 +1,6 @@
 package jpabook.japshop.service;
 
+import java.util.List;
 import jpabook.japshop.domain.Delivery;
 import jpabook.japshop.domain.Member;
 import jpabook.japshop.domain.Order;
@@ -8,6 +9,7 @@ import jpabook.japshop.domain.item.Item;
 import jpabook.japshop.repository.ItemRepository;
 import jpabook.japshop.repository.MemberRepository;
 import jpabook.japshop.repository.OrderRepository;
+import jpabook.japshop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,6 +49,10 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
         Order order = orderRepository.findOne(orderId);
         order.cancel();
+    }
+
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAll(orderSearch);
     }
 
 }
